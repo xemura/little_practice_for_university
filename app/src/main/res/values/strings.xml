@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Practice</string>
+    <string name="text_name">Name</string>
+    <string name="text_email">email</string>
+    <string name="text_pass_id">pass_id</string>
+    <string name="qr_code">QRCode</string>
+    <string name="staff_members">STAFF MEMBERS</string>
+    <string name="back">BACK</string>
+    <string name="uuid">uuid</string>
+</resources>
