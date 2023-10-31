@@ -2,7 +2,6 @@ package com.xenia.practice.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.xenia.practice.R
 import com.xenia.practice.activity.QRCodeActivity
-import org.json.JSONArray
+import com.xenia.practice.model.User
 
 class AdapterUser(private val context: Context,
-                  private val listUser: JSONArray):
+                  private val listUser: ArrayList<User>):
     RecyclerView.Adapter<AdapterUser.ViewHolderHuman>() {
 
     class ViewHolderHuman(view: View) : RecyclerView.ViewHolder(view) {
@@ -33,20 +32,22 @@ class AdapterUser(private val context: Context,
         return ViewHolderHuman(itemView)
     }
 
-    override fun getItemCount() = listUser.length()
+    override fun getItemCount() = listUser.size
 
     override fun onBindViewHolder(holder: ViewHolderHuman, position: Int) {
-        val img = listUser.getJSONObject(position).get("avatar").toString()
-        val first_name = listUser.getJSONObject(position).get("first_name").toString()
-        val email = listUser.getJSONObject(position).get("email").toString()
-        val pass_id = listUser.getJSONObject(position).get("pass_id").toString()
+        val img = listUser[position].avatar
+        val firstName = listUser[position].first_name
+        val email = listUser[position].email
+        val passId = listUser[position].pass_id
+
         Picasso.get().load(img).into(holder.imgAvatar)
-        holder.textName.text = first_name
+        holder.textName.text = firstName
         holder.textEmail.text = email
 
         holder.cardView.setOnClickListener {
+            // переходим на карточку с QRCode сотрудника
             val intent = Intent(context, QRCodeActivity::class.java)
-            intent.putExtra("pass_id", pass_id)
+            intent.putExtra("pass_id", passId)
             context.startActivity(intent)
         }
     }
